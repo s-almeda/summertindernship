@@ -48,6 +48,48 @@ Leap.loop(controllerOptions, function(frame) {
 
   frameOutput.innerHTML = "<div style='width:300px; float:left; padding:5px'>" + frameString + "</div>";
 
+
+  // Display Gesture object data
+  var gestureOutput = document.getElementById("gestureData");
+  var gestureString = "";
+  if (frame.gestures.length > 0) {
+    if (pauseOnGesture) {
+      togglePause();
+    }
+    for (var i = 0; i < frame.gestures.length; i++) {
+      var gesture = frame.gestures[i];
+      gestureString += "Gesture ID: " + gesture.id + ", "
+                    + "type: " + gesture.type + ", "
+                    + "state: " + gesture.state + ", "
+                    + "hand IDs: " + gesture.handIds.join(", ") + ", "
+                    + "pointable IDs: " + gesture.pointableIds.join(", ") + ", "
+                    + "gesture direction: " + gesture.direction + ", "
+                    + "duration: " + gesture.duration + " &micro;s, ";
+
+      if (gesture.type === "swipe") {
+          gestureString += "SWIPE";
+            if (gesture.direction[0].toFixed(1) >= 0.5
+            	&& gesture.direction[2].toFixed(1) <= Math.abs(0.7))
+        	{
+        		controlMessage = "SWIPE RIGHT";
+        	}
+            if (gesture.direction[0].toFixed(1) <= -0.5
+            	&& gesture.direction[2].toFixed(1) <= Math.abs(0.7))
+            {
+            	controlMessage = "SWIPE LEFT";
+            }
+
+      }
+      gestureString += "<br />";
+    }
+  }
+  else {
+    gestureString += "No gestures";
+  }
+  //gestureOutput.innerHTML = gestureString; //UNCOMMENT TO PRINT GESTURE DATA
+
+
+
   // Display Hand object data
   var handOutput = document.getElementById("handData");
   var handString = "";
@@ -102,14 +144,17 @@ Leap.loop(controllerOptions, function(frame) {
         		&& fingers[3].extended === false
         		&& fingers[4].extended === false
         		&& fingers[0].yDirection >= 0.1){
-        		controlMessage = "THUMBS UP!"
+        		controlMessage = "THUMBS UP!";
         	}
-        	if (fingers[1].extended === false
+        	else if (fingers[1].extended === false
         		&& fingers[2].extended === true
         		&& fingers[3].extended === false
         		&& fingers[4].extended === false){
-        		controlMessage = "PEACE AMONG WORLDS!"
+        		controlMessage = "PEACE AMONG WORLDS!";
         	}
+        	//else{
+        		//controlMessage = "none";
+        	//}
 
         }
       }
@@ -126,50 +171,7 @@ Leap.loop(controllerOptions, function(frame) {
 
   
 
-  // Display Gesture object data
-  var gestureOutput = document.getElementById("gestureData");
-  var gestureString = "";
-  if (frame.gestures.length > 0) {
-    if (pauseOnGesture) {
-      togglePause();
-    }
-    for (var i = 0; i < frame.gestures.length; i++) {
-      var gesture = frame.gestures[i];
-      gestureString += "Gesture ID: " + gesture.id + ", "
-                    + "type: " + gesture.type + ", "
-                    + "state: " + gesture.state + ", "
-                    + "hand IDs: " + gesture.handIds.join(", ") + ", "
-                    + "pointable IDs: " + gesture.pointableIds.join(", ") + ", "
-                    + "duration: " + gesture.duration + " &micro;s, ";
 
-      switch (gesture.type) {
-        case "circle":
-          gestureString += "center: " + vectorToString(gesture.center) + " mm, "
-                        + "normal: " + vectorToString(gesture.normal, 2) + ", "
-                        + "radius: " + gesture.radius.toFixed(1) + " mm, "
-                        + "progress: " + gesture.progress.toFixed(2) + " rotations";
-          break;
-        case "swipe":
-          gestureString += "start position: " + vectorToString(gesture.startPosition) + " mm, "
-                        + "current position: " + vectorToString(gesture.position) + " mm, "
-                        + "direction: " + vectorToString(gesture.direction, 1) + ", "
-                        + "speed: " + gesture.speed.toFixed(1) + " mm/s";
-
-          break;
-        case "screenTap":
-        case "keyTap":
-          gestureString += "position: " + vectorToString(gesture.position) + " mm";
-          break;
-        default:
-          gestureString += "unknown gesture type";
-      }
-      gestureString += "<br />";
-    }
-  }
-  else {
-    gestureString += "No gestures";
-  }
-  gestureOutput.innerHTML = gestureString;
 
   // Store frame for motion functions
   previousFrame = frame;
@@ -211,17 +213,15 @@ function pauseForGestures() {
 </script>
 </head>
 <body>
-<h1>Leap Motion JavaScript Sample</h1>
+<h1>shm and shenry, that's shmenry</h1>
 <div id="main">
   <button id="pause" onclick="togglePause()">Pause</button>
   <input type="checkbox" id="pauseOnGesture" onclick="pauseForGestures()">Pause on gesture</input>
    <h3>Frame data:</h3>
   <div id="frameData"></div>
   <div style="clear:both;"></div>
-  <h3>Hand data:</h3>
   <div id="handData"></div>
   <div style="clear:both;"></div>
-  <h3>Gesture data:</h3>
   <div id="gestureData"></div>
 
   <h3>LAST CONTROL MESSAGE:</h3>
