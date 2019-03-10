@@ -6,18 +6,10 @@
 <title>shm & shenry's cool leap test</title>
 <script src="leap-0.6.4.min.js"></script>
 <script src="getApplicants.js"></script>
-<script>
-  console.log(ApplicantData);
-  //************request json data*************
-/*  export function data(){
-    fetch('http://localhost:5000/', {mode: 'cors'}).then(function(response) {
-    return response.text();
-  }).then(function(text) {
-    console.log('req sucessful', text);
-  }).catch(function(error) {
-    log('req failed', error);
-  })
-}*/
+<script src="leapMotionControl.js"></script>
+<!-- <script>
+console.log(ApplicantData);
+ApplicantData.forEach(fun)
 // Store frame for motion functions
 var previousFrame = null;
 var paused = false;
@@ -206,7 +198,7 @@ function pauseForGestures() {
 
 
 </script>
-</head>
+ --></head>
 <body>
 <h1>shm and shenry, that's shmenry</h1>
 <div id="main">
@@ -219,6 +211,9 @@ function pauseForGestures() {
   <div style="clear:both;"></div>
   <div id="gestureData"></div>
 
+  <div id="resumeData">
+    <p id="currentResume"></p>
+  </div>
   <h3>LAST CONTROL MESSAGE:</h3>
   <div id="controlData"></div>
 </div>

@@ -21,11 +21,13 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 # Views
 @app.route('/', methods=['GET'])
-@cross_origin(origin='localhost', headers=['Content-Type', 'Authorization'])
+@cross_origin(headers=['Content-Type', 'Authorization'])
 def index():
 	r = requests.get('http://hackicims.com/api/v1/companies/99/people', headers=headers)
-	json = r.json()	
-	return str(json)
+	json = r.json()
+	#properJson = {'applicants' : }
+	# print(str(json))
+	return jsonify(json)
 
 # Run
 if __name__ == '__main__':
