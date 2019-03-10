@@ -3,4 +3,5 @@ const request = async () => {
   const applicantsJson = await response.json();
   console.log(applicantsJson);
   return applicantsJson;
+
 }

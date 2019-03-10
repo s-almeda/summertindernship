@@ -1,3 +1,5 @@
+
+
 // Store frame for motion functions
 var previousFrame = null;
 var paused = false;
