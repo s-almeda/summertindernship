@@ -39,9 +39,9 @@ Leap.loop(controllerOptions, function(frame) {
   var gestureOutput = document.getElementById("gestureData");
   var gestureString = "";
   if (frame.gestures.length > 0) {
-    var currApplicant = applicantsIter.next().value;
-    document.getElementById.innerHTML = currApplicant.firstName + '</br>' 
-      + currApplicant.skills + '</br>';
+    //var currApplicant = applicantsIter.next().value;
+    //document.getElementById.innerHTML = currApplicant.firstName + '</br>' 
+    //  + currApplicant.skills + '</br>';
     if (pauseOnGesture) {
       togglePause();
     }
