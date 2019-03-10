@@ -43,6 +43,7 @@ Leap.loop(controllerOptions, function(frame) {
     var currApplicant = appIter.next().value;
     document.getElementById.innerHTML = currApplicant.firstName + '</br>' 
       + currApplicant.skills + '</br>';
+
     if (pauseOnGesture) {
       togglePause();
     }
