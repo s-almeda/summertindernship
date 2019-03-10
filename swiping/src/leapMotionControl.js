@@ -15,10 +15,13 @@ var controllerOptions = {enableGestures: true};
 // controllerOptions.optimizeHMD = true;
 var currIndex = 0;
   var currApplicant = Applicants[currIndex];
+  var translation;
 Leap.loop(controllerOptions, function(frame) {
+
   if (paused) {
     return; // Skip this update
   }
+
 
   // Display Frame object data
   var frameOutput = document.getElementById("frameData");
@@ -28,8 +31,9 @@ Leap.loop(controllerOptions, function(frame) {
 
   // Frame motion factors
   if (previousFrame && previousFrame.valid) {
-    var translation = frame.translation(previousFrame);
-    frameString += "Translation: " + vectorToString(translation) + " mm <br />";
+    translation = frame.translation(previousFrame);
+    //frameString += "Translation: " + vectorToString(translation) + " mm <br />";
+    console.log(vectorToString(translation));
 
   }
 
@@ -66,14 +70,16 @@ Leap.loop(controllerOptions, function(frame) {
             	&& gesture.direction[2].toFixed(1) <= Math.abs(0.7))
         	{
         		controlMessage = "SWIPE RIGHT";
-            prevApplicant();
+            console.log(gesture.state);
+
 
         	}
             if (gesture.direction[0].toFixed(1) <= -0.5
             	&& gesture.direction[2].toFixed(1) <= Math.abs(0.7))
             {
             	controlMessage = "SWIPE LEFT";
-              nextApplicant();
+              console.log(gesture.state);
+              
             }
 
       }
@@ -168,6 +174,21 @@ Leap.loop(controllerOptions, function(frame) {
 
   var controlOutput = document.getElementById("controlData");
   controlOutput.innerHTML = controlMessage;
+  var myVar;
+
+  if (controlMessage === "SWIPE RIGHT" && gestureString === "No gestures" 
+    ){
+    //clearTimeout(myVar)
+     myVar = setTimeout(prevApplicant, 3000);
+    controlMessage = "none";
+  }
+  if (controlMessage === "SWIPE LEFT" && gestureString === "No gestures"){
+    //clearTimeout(myVar)
+     myVar = setTimeout(nextApplicant, 3000);
+    controlMessage = "none";
+
+  }
+
 })
 
 
@@ -202,7 +223,7 @@ function pauseForGestures() {
 
 function displayApplicant(thisObj)
     {   
-        console.log(thisObj.id);
+        //console.log(thisObj.id);
         if (!thisObj.firstName)
           var fullNameString = "None ? :0!!"
         else
