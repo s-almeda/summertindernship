@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<!--
-/-------------------------------------------------------------
-\------------------------------------------------------------------------------/
--->
-
-<!--
-
--->
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>shm & shenry's cool leap test</title>
 <script src="leap-0.6.4.min.js"></script>
+<script src="getApplicants.js"></script>
 <script>
+  console.log(ApplicantData);
+  //************request json data*************
+/*  export function data(){
+    fetch('http://localhost:5000/', {mode: 'cors'}).then(function(response) {
+    return response.text();
+  }).then(function(text) {
+    console.log('req sucessful', text);
+  }).catch(function(error) {
+    log('req failed', error);
+  })
+}*/
 // Store frame for motion functions
 var previousFrame = null;
 var paused = false;
@@ -110,32 +114,26 @@ Leap.loop(controllerOptions, function(frame) {
         	var pointable = hand.pointables[j];
           /*----------------------------------
 
-			Get finger type as an integer, code:
+			     Get finger type as an integer, code:
 
             0 = THUMB
-			1 = INDEX
-			2 = MIDDLE
-			3 = RING
-			4 = PINKY
+      			1 = INDEX
+      			2 = MIDDLE
+      			3 = RING
+      			4 = PINKY
 
             -----------------------------------*/
-            var currentFinger = {
-				  type: pointable.type,
-				  name: fingerTypeMap[pointable.type],
-				  extended: pointable.extended,
-				  yDirection: pointable.direction[1].toFixed(2)
-				};
-			fingers.push(currentFinger);
-
-            handString += "Finger Type: " + currentFinger.name + "<br />";
-
-            handString += "Extended?: "  + currentFinger.extended + "<br />";
-            handString += "Y Direction?: "  + currentFinger.yDirection + "<br />";
-
-
-
-            
-        }
+          var currentFinger = {
+  				  type: pointable.type,
+  				  name: fingerTypeMap[pointable.type],
+  				  extended: pointable.extended,
+  				  yDirection: pointable.direction[1].toFixed(2)
+			    }
+  			  fingers.push(currentFinger);
+          handString += "Finger Type: " + currentFinger.name + "<br />";
+          handString += "Extended?: "  + currentFinger.extended + "<br />";
+          handString += "Y Direction?: "  + currentFinger.yDirection + "<br />";   
+      }
 
         if(fingers.length > 0) { //if we have fingers
         	if (fingers[0].extended === true
@@ -158,9 +156,6 @@ Leap.loop(controllerOptions, function(frame) {
 
         }
       }
-
-
-
       handString += "</div>";
     }
   }
