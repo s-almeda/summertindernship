@@ -222,54 +222,52 @@ function pauseForGestures() {
 
 
 function displayApplicant(thisObj)
-    {   
-        //console.log(thisObj.id);
-        if (!thisObj.firstName)
-          var fullNameString = "None ? :0!!"
-        else
-          var fullNameString = thisObj.firstName + " "+ thisObj.middleName + " " + thisObj.lastName + "<br />";
+{   
+  //console.log(thisObj.id);
+  if (!thisObj.firstName)
+    var fullNameString = "None ? :0!!"
+  else
+    var fullNameString = thisObj.firstName + " "+ thisObj.middleName + " " + thisObj.lastName + "<br />";
 
-        document.getElementById("fullName").innerHTML = fullNameString;
-        document.getElementById("currentEmail").innerHTML = thisObj.email;
+  document.getElementById("fullName").innerHTML = fullNameString;
+  document.getElementById("currentEmail").innerHTML = thisObj.email;
 
-        var educationString = "";
-        console.log();
-        if (thisObj.education.length > 0)
-          educationString += "Degree: " + thisObj.education[0]["degree"] + "<br>School: " + thisObj.education[0]["school"] +  "<br>Major: " + thisObj.education[0]["major"] + "<br>Graduation Date: " + thisObj.education[0]["graduationDate"];
-        else{
-          educationString = "None :,("
-        }
+  var educationString = "";
+  console.log();
+  if (thisObj.education.length > 0)
+    educationString += "Degree: " + thisObj.education[0]["degree"] + "<br>School: " + thisObj.education[0]["school"] +  "<br>Major: " + thisObj.education[0]["major"] + "<br>Graduation Date: " + thisObj.education[0]["graduationDate"];
+  else{
+    educationString = "None :,("
+  }
 
 
-        document.getElementById("currentEducation").innerHTML = educationString;
+  document.getElementById("currentEducation").innerHTML = educationString;
 
-        var skillString = "";
-        if (thisObj.skills.length > 0){
-          for (skill in thisObj.skills) {
-              skillString += thisObj.skills[skill]["level"] + " at " + thisObj.skills[skill]["name"] + "<br />";
+  var skillString = "";
+  if (thisObj.skills.length > 0){
+    for (skill in thisObj.skills) {
+        skillString += thisObj.skills[skill]["level"] + " at " + thisObj.skills[skill]["name"] + "<br />";
 
-          }
-        }
-        else
-          skillString = "None :,(";
-
-        document.getElementById("currentSkills").innerHTML = skillString;
     }
+  }
+  else
+    skillString = "None :,(";
+
+  document.getElementById("currentSkills").innerHTML = skillString;
+}
 
 function nextApplicant(){
+  currIndex++;
+  if (currIndex >= Applicants.length)
+      currIndex = 0;
+  //displayApplicant(Applicants[currIndex]);
+}
 
-        currIndex++;
-        if (currIndex >= Applicants.length)
-            currIndex = 0;
-        //displayApplicant(Applicants[currIndex]);
-
-    }
 function prevApplicant(){
+  currIndex--;
+  if (currIndex < 0)
+      currIndex = Applicants.length;
+  //displayApplicant(Applicants[currIndex]);
 
-        currIndex--;
-        if (currIndex < 0)
-            currIndex = Applicants.length;
-        //displayApplicant(Applicants[currIndex]);
-
-    }
+}
 
