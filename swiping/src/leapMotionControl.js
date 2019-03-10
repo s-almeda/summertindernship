@@ -1,5 +1,5 @@
-//var applicantsIter = applicantData[Symbol.iterator]();
-data = request();
+var appIter = request();
+
 // Store frame for motion functions
 var previousFrame = null;
 var paused = false;
@@ -33,13 +33,14 @@ Leap.loop(controllerOptions, function(frame) {
   }
 
   frameOutput.innerHTML = "<div style='width:300px; float:left; padding:5px'>" + frameString + "</div>";
-
+  
 
   // Display Gesture object data
   var gestureOutput = document.getElementById("gestureData");
   var gestureString = "";
   if (frame.gestures.length > 0) {
-    var currApplicant = applicantsIter.next().value;
+    //********************** EDIT HERE **********************
+    var currApplicant = appIter.next().value;
     document.getElementById.innerHTML = currApplicant.firstName + '</br>' 
       + currApplicant.skills + '</br>';
     if (pauseOnGesture) {
