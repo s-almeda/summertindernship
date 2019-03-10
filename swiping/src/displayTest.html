@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Display Test</title>
+<script src="leap-0.6.4.min.js"></script>
+
+</head>
+<body>
+<h1>Pretty</h1>
+<button onclick="nextApplicant()">Next Boy</button>
+<div id="main">
+   <h3>Name: </h3>
+  <div id="fullName"></div>
+  <div style="clear:both;"></div>
+  <h3>Email</h3>
+  <div id="currentEmail"></div>
+  <div style="clear:both;"></div>
+  <h3>Education</h3>
+  <div id="currentEducation"></div>
+  <div style="clear:both;"></div>
+  <h3>Skills</h3>
+  <div id="currentSkills"></div>
+  <div style="clear:both;"></div>
+
+</div>
+
+
+
+
+
+
+
+<script>
+
+currentObjIndex = 0;
+
+myObjs = [
+        {
+            "id": 18970,
+            "email": "NOLAN.MEREDITH2082@emailz.net",
+            "firstName": "NOLAN",
+            "middleName": "MARCELINO",
+            "lastName": "MEREDITH",
+            "address": {
+                "street": "437 Moland Park",
+                "city": "Hudai",
+                "state": "Oklahoma",
+                "zip": "56841",
+                "country": "US"
+            },
+            "education": [
+                {
+                    "degree": "BA",
+                    "school": "Berkeley College",
+                    "major": "Pokemon Studies",
+                    "graduationDate": "1992-10-15"
+                },
+                {
+                    "degree": "MA",
+                    "school": "Andromedan Institute of Technology",
+                    "major": "Sports Turf",
+                    "graduationDate": "1982-10-19"
+                }
+            ],
+            "skills": [
+                {
+                    "name": "Deconstructionism",
+                    "level": "Advanced"
+                },
+                {
+                    "name": "Decision making",
+                    "level": "Beginner"
+                },
+                {
+                    "name": "SEO",
+                    "level": "Beginner"
+                },
+                {
+                    "name": "Customer Commitment",
+                    "level": "Beginner"
+                },
+                {
+                    "name": "Mathematics",
+                    "level": "Beginner"
+                },
+                {
+                    "name": "Trivia",
+                    "level": "Expert"
+                }
+            ]
+        },
+        {
+            "id": 18971,
+            "email": "ALEJANDRA.COATES2446@mailz.com",
+            "firstName": "ALEJANDRA",
+            "middleName": "SALLIE",
+            "lastName": "COATES",
+            "address": {
+                "street": "539 Superior Crossing",
+                "city": "San Antonio de Los Altos",
+                "state": "Washington",
+                "zip": "50408",
+                "country": "US"
+            },
+            "education": [
+                {
+                    "degree": "BA",
+                    "school": "Stevens Institute of Technology",
+                    "major": "English/Writing",
+                    "graduationDate": "2014-10-15"
+                },
+                {
+                    "degree": "BA",
+                    "school": "Princeton University",
+                    "major": "Finance & Economics",
+                    "graduationDate": "2000-6-15"
+                }
+            ],
+            "skills": [
+                {
+                    "name": "Data Analysis",
+                    "level": "Expert"
+                },
+                {
+                    "name": "Quick Learner",
+                    "level": "Advanced"
+                },
+                {
+                    "name": "Self-motivation",
+                    "level": "Advanced"
+                }
+            ]
+        },
+
+        {
+            "id": 18977,
+            "email": "HENRIETTA.SALTER9478@email.com",
+            "firstName": "HENRIETTA",
+            "middleName": "BRIGITTE",
+            "lastName": "SALTER",
+            "address": {
+                "street": "784 Moulton Place",
+                "city": "La Concepcion",
+                "state": "Kentucky",
+                "zip": "70190",
+                "country": "CA"
+            },
+            "education": [
+                {
+                    "degree": "MA",
+                    "school": "University of Phoenix",
+                    "major": "Astronomy",
+                    "graduationDate": "2003-8-23"
+                }
+            ],
+            "skills": [
+                {
+                    "name": "Dancing",
+                    "level": "Advanced"
+                },
+                {
+                    "name": "Juggling",
+                    "level": "Expert"
+                },
+                {
+                    "name": "Customer Commitment",
+                    "level": "Expert"
+                },
+                {
+                    "name": "Video games",
+                    "level": "Advanced"
+                },
+                {
+                    "name": "Responsible",
+                    "level": "Expert"
+                },
+                {
+                    "name": "Microsoft Word",
+                    "level": "Beginner"
+                }
+            ]
+        }
+]
+
+
+displayApplicant(myObjs[currentObjIndex]);
+
+
+function displayApplicant(thisObj)
+{
+    var fullNameString = thisObj.firstName + " "+ thisObj.middleName + " " + thisObj.lastName + "<br />";
+
+    document.getElementById("fullName").innerHTML = fullNameString;
+    document.getElementById("currentEmail").innerHTML = thisObj.email;
+
+    var educationString = "";
+    console.log();
+    educationString += "Degree: " + thisObj.education[0]["degree"] + "<br>School: " + thisObj.education[0]["school"] +  "<br>Major: " + thisObj.education[0]["major"] + "<br>Graduation Date: " + thisObj.education[0]["graduationDate"];
+
+    document.getElementById("currentEducation").innerHTML = educationString;
+
+    var skillString = "";
+    for (skill in thisObj.skills) {
+        skillString += thisObj.skills[skill]["level"] + " at " + thisObj.skills[skill]["name"] + "<br />";
+
+    }
+
+    document.getElementById("currentSkills").innerHTML = skillString;
+}
+
+function nextApplicant(){
+    currentObjIndex++;
+    if (currentObjIndex >= myObjs.length)
+        currentObjIndex = 0;
+    displayApplicant(myObjs[currentObjIndex]);
+
+}
+
+
+
+
+</script>
+
+</body>
+</html>
