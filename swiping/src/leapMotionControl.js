@@ -45,8 +45,7 @@ Leap.loop(controllerOptions, function(frame) {
   //console.log(currApplicant);
   displayApplicant(currApplicant);
   currApplicant = Applicants[currIndex];
-  document.getElementById("applicantName").innerHTML = currApplicant.firstName + '<br />' 
-      + currApplicant.skills + '<br />';
+
   if (frame.gestures.length > 0) {
     if (pauseOnGesture) {
       togglePause();
@@ -67,12 +66,14 @@ Leap.loop(controllerOptions, function(frame) {
             	&& gesture.direction[2].toFixed(1) <= Math.abs(0.7))
         	{
         		controlMessage = "SWIPE RIGHT";
+            prevApplicant();
 
         	}
             if (gesture.direction[0].toFixed(1) <= -0.5
             	&& gesture.direction[2].toFixed(1) <= Math.abs(0.7))
             {
             	controlMessage = "SWIPE LEFT";
+              nextApplicant();
             }
 
       }
@@ -200,8 +201,12 @@ function pauseForGestures() {
 
 
 function displayApplicant(thisObj)
-    {
-        var fullNameString = thisObj.firstName + " "+ thisObj.middleName + " " + thisObj.lastName + "<br />";
+    {   
+        console.log(thisObj.id);
+        if (!thisObj.firstName)
+          var fullNameString = "None ? :0!!"
+        else
+          var fullNameString = thisObj.firstName + " "+ thisObj.middleName + " " + thisObj.lastName + "<br />";
 
         document.getElementById("fullName").innerHTML = fullNameString;
         document.getElementById("currentEmail").innerHTML = thisObj.email;
@@ -213,13 +218,19 @@ function displayApplicant(thisObj)
         else{
           educationString = "None :,("
         }
+
+
         document.getElementById("currentEducation").innerHTML = educationString;
 
         var skillString = "";
-        for (skill in thisObj.skills) {
-            skillString += thisObj.skills[skill]["level"] + " at " + thisObj.skills[skill]["name"] + "<br />";
+        if (thisObj.skills.length > 0){
+          for (skill in thisObj.skills) {
+              skillString += thisObj.skills[skill]["level"] + " at " + thisObj.skills[skill]["name"] + "<br />";
 
+          }
         }
+        else
+          skillString = "None :,(";
 
         document.getElementById("currentSkills").innerHTML = skillString;
     }
@@ -229,6 +240,14 @@ function nextApplicant(){
         currIndex++;
         if (currIndex >= Applicants.length)
             currIndex = 0;
+        //displayApplicant(Applicants[currIndex]);
+
+    }
+function prevApplicant(){
+
+        currIndex--;
+        if (currIndex < 0)
+            currIndex = Applicants.length;
         //displayApplicant(Applicants[currIndex]);
 
     }
