@@ -1,5 +1,5 @@
 
-
+var server = "asdf.ngrok.io";
 // Store frame for motion functions
 var previousFrame = null;
 var paused = false;
@@ -182,12 +182,31 @@ Leap.loop(controllerOptions, function(frame) {
      myVar = setTimeout(prevApplicant, 3000);
     controlMessage = "none";
   }
-  if (controlMessage === "SWIPE LEFT" && gestureString === "No gestures"){
+  else if (controlMessage === "SWIPE LEFT" && gestureString === "No gestures"){
     //clearTimeout(myVar)
      myVar = setTimeout(nextApplicant, 3000);
     controlMessage = "none";
 
   }
+   else if (controlMessage === "THUMBS UP!"){
+    fetch(server, {
+      method: "post",
+      body : JSON.stringify({
+        id: currApplicant.id,
+        type: "approve"
+      })
+    })
+   } 
+   else if (controlMessage === "PEACE AMONG WORLDS!"){
+    fetch(server, {
+      method: "post",
+      body : JSON.stringify({
+        id: currApplicant.id,
+        type: "reject"
+      })
+    })
+   }
+
 
 })
 
