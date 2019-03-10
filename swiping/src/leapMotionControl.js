@@ -1,5 +1,3 @@
-//var applicantsIter = applicantData[Symbol.iterator]();
-data = request();
 // Store frame for motion functions
 var previousFrame = null;
 var paused = false;
@@ -13,7 +11,8 @@ var controllerOptions = {enableGestures: true};
 
 // to use HMD mode:
 // controllerOptions.optimizeHMD = true;
-
+var currIndex = 0;
+  var currApplicant = Applicants[currIndex];
 Leap.loop(controllerOptions, function(frame) {
   if (paused) {
     return; // Skip this update
@@ -32,16 +31,21 @@ Leap.loop(controllerOptions, function(frame) {
 
   }
 
-  frameOutput.innerHTML = "<div style='width:300px; float:left; padding:5px'>" + frameString + "</div>";
+  //frameOutput.innerHTML = "<div style='width:300px; float:left; padding:5px'>" + frameString + "</div>";
 
 
   // Display Gesture object data
   var gestureOutput = document.getElementById("gestureData");
   var gestureString = "";
+  
+  //console.log(Applicants[0])
+
+  //console.log(currApplicant);
+  displayApplicant(currApplicant);
+  currApplicant = Applicants[currIndex];
+  document.getElementById("applicantName").innerHTML = currApplicant.firstName + '<br />' 
+      + currApplicant.skills + '<br />';
   if (frame.gestures.length > 0) {
-    //var currApplicant = applicantsIter.next().value;
-    //document.getElementById.innerHTML = currApplicant.firstName + '</br>' 
-    //  + currApplicant.skills + '</br>';
     if (pauseOnGesture) {
       togglePause();
     }
@@ -72,6 +76,7 @@ Leap.loop(controllerOptions, function(frame) {
       }
       gestureString += "<br />";
     }
+    currIndex+=1;
   }
   else {
     gestureString += "No gestures";
@@ -190,4 +195,39 @@ function pauseForGestures() {
     pauseOnGesture = false;
   }
 }
+
+
+function displayApplicant(thisObj)
+    {
+        var fullNameString = thisObj.firstName + " "+ thisObj.middleName + " " + thisObj.lastName + "<br />";
+
+        document.getElementById("fullName").innerHTML = fullNameString;
+        document.getElementById("currentEmail").innerHTML = thisObj.email;
+
+        var educationString = "";
+        console.log();
+        if (thisObj.education.length > 0)
+          educationString += "Degree: " + thisObj.education[0]["degree"] + "<br>School: " + thisObj.education[0]["school"] +  "<br>Major: " + thisObj.education[0]["major"] + "<br>Graduation Date: " + thisObj.education[0]["graduationDate"];
+        else{
+          educationString = "None :,("
+        }
+        document.getElementById("currentEducation").innerHTML = educationString;
+
+        var skillString = "";
+        for (skill in thisObj.skills) {
+            skillString += thisObj.skills[skill]["level"] + " at " + thisObj.skills[skill]["name"] + "<br />";
+
+        }
+
+        document.getElementById("currentSkills").innerHTML = skillString;
+    }
+
+function nextApplicant(){
+
+        currIndex++;
+        if (currIndex >= Applicants.length)
+            currIndex = 0;
+        //displayApplicant(Applicants[currIndex]);
+
+    }
 
