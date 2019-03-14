@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>shm & shenry's cool leap test</title>
+<script src="leap-0.6.4.min.js"></script>
+<script src="people.js"></script>
+<!-- <script src="getApplicants.js"></script> -->
+<script src="leapMotionControl.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+
+<style>
+
+h3   {
+  text-align: center;
+  font-family: "Arial", Gadget, monospace;
+  font-style: italic;
+  }
+
+h1   {text-align: center;}
+p    {
+  text-align: center;
+
+  font-family: "Arial Black", Gadget, sans-serif;}
+body{
+  max-width: 1000px;
+  text-align: center;
+  margin: auto;
+  /* The image used */
+  background-image: url("https://i.imgur.com/bLs9Kgv.jpg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: repeat;
+  background-size: cover;
+}
+
+.myBackground {
+  background-color: rgba(255,255,255, 0.5);
+  color: inherit;
+}
+.myField {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 20px;
+  font-weight: 5;
+}
+
+
+/* Popup container */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+.popuptext span {
+  visibility: hidden;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;} 
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+
+</style>
+
+</head>
+
+<body>
+  <div class="pl-3">
+    <br/>
+    <br/>
+  </div>
+<div id="main" class="text-justify">
+  <div class="jumbotron myBackground">
+
+    <img src="https://i.imgur.com/dCmv4Uq.png" alt="logo" width="950" align="middle">
+
+    <span class="popuptext" id="rejectMessage" hidden>THANK YOU, NEXT.</span>
+    <span class="popuptext" id="approveMessage" hidden>They can like, get it. (An internship.)</span>
+    <span class="popuptext" id="swipeLeftMessage" hidden>We regret to inform you, but we swiped left.</span>
+
+
+    
+    <br>
+    <br>
+    <h3>Name: </h3>
+    <div id="fullName" class= "myField"></div>
+    <div style="clear:both;"></div>
+    <h3>Email:</h3>
+    <div id="currentEmail" class= "myField"></div>
+    <div style="clear:both;"></div>
+    <h3>Education:</h3>
+    <div id="currentEducation" class= "myField"></div>
+    <div style="clear:both;"></div>
+    <h3>Skills:</h3>
+    <div id="currentSkills" class= "myField"></div>
+    <div style="clear:both;"></div>
+      <p id="currentResume"></p>
+      <button id="pause" onclick="togglePause()">Pause</button>
+    <button onclick="prevApplicant()">Previous</button>
+    <button onclick="nextApplicant()">Thank you, NEXT</button>
+    </div>
+
+  </div>
+
+
+  <div class="pl-3" class="p-3 mb-2 bg-warning text-dark">
+    <h4>LAST CONTROL MESSAGE:</h3>
+    <div id="controlData"></div>
+  </div>
+</div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</html>
